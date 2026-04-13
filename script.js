@@ -13,6 +13,7 @@ const musicStatus = document.getElementById("musicStatus");
 const THEME_STORAGE_KEY = "linkpage-theme";
 const INITIAL_VOLUME = 0.1;
 const VOLUME_STEP = 0.05;
+const AUDIO_ACTIVATION_EVENTS = ["pointerdown", "touchstart", "keydown"];
 
 function refreshIcons() {
   if (window.lucide) {
@@ -70,6 +71,11 @@ function updateMusicStatus() {
     return;
   }
 
+  if (backgroundMusic.muted) {
+    musicStatus.textContent = "Toque para ativar o som";
+    return;
+  }
+
   musicStatus.textContent = `Volume ${volumePercent}%`;
 }
 
@@ -88,10 +94,50 @@ async function playMusic() {
     await backgroundMusic.play();
     setMusicButton(true);
     updateVolumeUI();
+    return true;
   } catch {
     setMusicButton(false);
-    musicStatus.textContent = `Clique em play - Volume ${getVolumePercent()}%`;
+    musicStatus.textContent = "Nao foi possivel iniciar automaticamente";
+    return false;
   }
+}
+
+async function activateSound() {
+  backgroundMusic.muted = false;
+  const started = await playMusic();
+
+  if (started) {
+    detachAudioActivation();
+  }
+}
+
+async function handleAudioActivation() {
+  await activateSound();
+}
+
+function attachAudioActivation() {
+  AUDIO_ACTIVATION_EVENTS.forEach((eventName) => {
+    document.addEventListener(eventName, handleAudioActivation, { once: true });
+  });
+}
+
+function detachAudioActivation() {
+  AUDIO_ACTIVATION_EVENTS.forEach((eventName) => {
+    document.removeEventListener(eventName, handleAudioActivation);
+  });
+}
+
+async function startMusicOnEntry() {
+  backgroundMusic.muted = true;
+  const started = await playMusic();
+
+  if (!started) {
+    backgroundMusic.muted = false;
+    musicStatus.textContent = `Clique em play - Volume ${getVolumePercent()}%`;
+    return;
+  }
+
+  attachAudioActivation();
 }
 
 function stopMusic() {
@@ -113,8 +159,8 @@ themeToggle.addEventListener("click", () => {
 });
 
 musicToggle.addEventListener("click", async () => {
-  if (backgroundMusic.paused) {
-    await playMusic();
+  if (backgroundMusic.paused || backgroundMusic.muted) {
+    await activateSound();
     return;
   }
 
@@ -143,7 +189,7 @@ setStaticIcons();
 setMusicButton(false);
 applySavedTheme();
 setInitialVolume();
-playMusic();
+startMusicOnEntry();
 
 requestAnimationFrame(() => {
   document.documentElement.classList.add("theme-ready");
