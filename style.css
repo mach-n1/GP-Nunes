@@ -1,3 +1,59 @@
+/* Botão de navegação lateral */
+.nav-btn {
+  border: 1px solid var(--border);
+  background-color: var(--card-strong);
+  color: var(--text);
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+}
+.nav-btn .icon-slot svg {
+  width: 20px;
+  height: 20px;
+}
+
+.side-nav {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 280px;
+  height: 100vh;
+  background: var(--card-strong);
+  box-shadow: -2px 0 18px rgba(0,0,0,0.18);
+  z-index: 1000;
+  transition: right 0.3s var(--theme-ease);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 18px 18px 18px;
+}
+.side-nav.open {
+  right: 0;
+}
+.close-nav-btn {
+  background: none;
+  border: none;
+  color: var(--accent-2);
+  font-size: 2rem;
+  align-self: flex-end;
+  cursor: pointer;
+  margin-bottom: 18px;
+}
+.side-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.side-nav li {
+  margin-bottom: 12px;
+  color: var(--muted);
+}
 /* Card de vídeo mais recente */
 .video-card {
   background: var(--card);

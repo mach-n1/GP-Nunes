@@ -1,3 +1,16 @@
+// Navegação lateral
+const openNavBtn = document.getElementById('openNavBtn');
+const closeNavBtn = document.getElementById('closeNavBtn');
+const sideNav = document.getElementById('sideNav');
+
+if (openNavBtn && closeNavBtn && sideNav) {
+  openNavBtn.addEventListener('click', () => {
+    sideNav.classList.add('open');
+  });
+  closeNavBtn.addEventListener('click', () => {
+    sideNav.classList.remove('open');
+  });
+}
 
 const themeToggle = document.getElementById("themeToggle");
 const themeToggleIcon = document.getElementById("themeToggleIcon");
