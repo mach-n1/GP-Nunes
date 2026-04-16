@@ -9,7 +9,8 @@ if (sideNav) {
 
 if (openNavBtn && closeNavBtn && sideNav) {
   openNavBtn.addEventListener('click', () => {
-    sideNav.classList.add('open');
+    // Toggle: se já está aberta, fecha; se está fechada, abre
+    sideNav.classList.toggle('open');
   });
   closeNavBtn.addEventListener('click', () => {
     sideNav.classList.remove('open');

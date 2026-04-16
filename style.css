@@ -56,6 +56,8 @@
   display: flex;
   flex-direction: column;
   padding: 24px 18px 18px 18px;
+  touch-action: none; /* Impede swipe/arraste de abrir/fechar */
+  overscroll-behavior: contain;
 }
 .side-nav.open {
   right: 0;
