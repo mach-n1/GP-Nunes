@@ -3,6 +3,10 @@ const openNavBtn = document.getElementById('openNavBtn');
 const closeNavBtn = document.getElementById('closeNavBtn');
 const sideNav = document.getElementById('sideNav');
 
+if (sideNav) {
+  sideNav.classList.remove('open'); // Garante que começa fechada
+}
+
 if (openNavBtn && closeNavBtn && sideNav) {
   openNavBtn.addEventListener('click', () => {
     sideNav.classList.add('open');
