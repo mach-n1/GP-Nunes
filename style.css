@@ -46,21 +46,26 @@
 .side-nav {
   position: fixed;
   top: 0;
-  right: -320px;
+  right: 0;
   width: 280px;
   height: 100vh;
   background: var(--card-strong);
   box-shadow: -2px 0 18px rgba(0,0,0,0.18);
   z-index: 1000;
-  transition: right 0.3s var(--theme-ease);
+  transition: transform 0.3s var(--theme-ease);
   display: flex;
   flex-direction: column;
   padding: 24px 18px 18px 18px;
-  touch-action: none; /* Impede swipe/arraste de abrir/fechar */
+  touch-action: none;
   overscroll-behavior: contain;
+  transform: translateX(100%);
+  pointer-events: none;
+  opacity: 0;
 }
 .side-nav.open {
-  right: 0;
+  transform: translateX(0);
+  pointer-events: auto;
+  opacity: 1;
 }
 .close-nav-btn {
   background: none;
