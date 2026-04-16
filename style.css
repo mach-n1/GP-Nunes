@@ -252,6 +252,11 @@ a {
   position: relative;
   text-align: center;
   padding: 28px 22px 24px;
+  z-index: 0;
+}
+
+body.nav-open .profile-card {
+  z-index: 10000;
 }
 
 .profile-card .theme-btn {

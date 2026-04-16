@@ -1,19 +1,26 @@
-// Navegação lateral
-const openNavBtn = document.getElementById('openNavBtn');
-const closeNavBtn = document.getElementById('closeNavBtn');
-const sideNav = document.getElementById('sideNav');
+// Navegacao lateral
+const openNavBtn = document.getElementById("openNavBtn");
+const closeNavBtn = document.getElementById("closeNavBtn");
+const sideNav = document.getElementById("sideNav");
+
+function syncNavState() {
+  document.body.classList.toggle("nav-open", sideNav?.classList.contains("open"));
+}
 
 if (sideNav) {
-  sideNav.classList.remove('open'); // Garante que começa fechada
+  sideNav.classList.remove("open"); // Garante que comeca fechada
+  syncNavState();
 }
 
 if (openNavBtn && closeNavBtn && sideNav) {
-  openNavBtn.addEventListener('click', () => {
-    // Toggle: se já está aberta, fecha; se está fechada, abre
-    sideNav.classList.toggle('open');
+  openNavBtn.addEventListener("click", () => {
+    sideNav.classList.toggle("open");
+    syncNavState();
   });
-  closeNavBtn.addEventListener('click', () => {
-    sideNav.classList.remove('open');
+
+  closeNavBtn.addEventListener("click", () => {
+    sideNav.classList.remove("open");
+    syncNavState();
   });
 }
 
